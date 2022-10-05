@@ -1,21 +1,14 @@
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { getPromoProduct } from '../../store/cameras-data/selectors';
 import Banner from '../banner/banner';
-
-const fakeProps =
-  {
-    id: 1,
-    name: 'Ретрокамера Dus Auge lV',
-    previewImg: 'img/content/banner-bg.jpg',
-    previewImg2x: 'img/content/banner-bg@2x.jpg',
-    previewImgWebp: 'img/content/banner-bg.webp',
-    previewImgWebp2x: 'img/content/banner-bg@2x.webp',
-  };
-
+import ProductField from '../product-field/product-field';
 
 function Catalog () : JSX.Element {
-  const props = fakeProps;
+  const promo = useAppSelector(getPromoProduct);
+
   return(
     <main>
-      <Banner props={props} />
+      {promo && <Banner promo={promo} />}
       <div className="page-content">
         <div className="breadcrumbs">
           <div className="container">
@@ -133,96 +126,7 @@ function Catalog () : JSX.Element {
                   </form>
                 </div>
               </div>
-              <div className="catalog__content">
-                <div className="catalog-sort">
-                  <form action="#">
-                    <div className="catalog-sort__inner">
-                      <p className="title title--h5">Сортировать:</p>
-                      <div className="catalog-sort__type">
-                        <div className="catalog-sort__btn-text">
-                          <input type="radio" id="sortPrice" name="sort" defaultChecked/>
-                          <label htmlFor="sortPrice">по цене</label>
-                        </div>
-                        <div className="catalog-sort__btn-text">
-                          <input type="radio" id="sortPopular" name="sort"/>
-                          <label htmlFor="sortPopular">по популярности</label>
-                        </div>
-                      </div>
-                      <div className="catalog-sort__order">
-                        <div className="catalog-sort__btn catalog-sort__btn--up">
-                          <input type="radio" id="up" name="sort-icon" defaultChecked aria-label="По возрастанию"/>
-                          <label htmlFor="up">
-                            <svg width="16" height="14" aria-hidden="true">
-                              <use xlinkHref="#icon-sort"></use>
-                            </svg>
-                          </label>
-                        </div>
-                        <div className="catalog-sort__btn catalog-sort__btn--down">
-                          <input type="radio" id="down" name="sort-icon" aria-label="По убыванию"/>
-                          <label htmlFor="down">
-                            <svg width="16" height="14" aria-hidden="true">
-                              <use xlinkHref="#icon-sort"></use>
-                            </svg>
-                          </label>
-                        </div>
-                      </div>
-                    </div>
-                  </form>
-                </div>
-                <div className="cards catalog__cards">
-                  <div className="product-card">
-                    <div className="product-card__img">
-                      <picture>
-                        <source type="image/webp" srcSet="img/content/img1.webp, img/content/img1@2x.webp 2x"/>
-                        <img src="img/content/img1.jpg" srcSet="img/content/img1@2x.jpg 2x" width="280" height="240" alt="Ретрокамера «Das Auge IV»"/>
-                      </picture>
-                    </div>
-                    <div className="product-card__info">
-                      <div className="rate product-card__rate">
-                        <svg width="17" height="16" aria-hidden="true">
-                          <use xlinkHref="#icon-full-star"></use>
-                        </svg>
-                        <svg width="17" height="16" aria-hidden="true">
-                          <use xlinkHref="#icon-full-star"></use>
-                        </svg>
-                        <svg width="17" height="16" aria-hidden="true">
-                          <use xlinkHref="#icon-full-star"></use>
-                        </svg>
-                        <svg width="17" height="16" aria-hidden="true">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                        <svg width="17" height="16" aria-hidden="true">
-                          <use xlinkHref="#icon-star"></use>
-                        </svg>
-                        <p className="visually-hidden">Рейтинг: 3</p>
-                        <p className="rate__count"><span className="visually-hidden">Всего оценок:</span>23</p>
-                      </div>
-                      <p className="product-card__title">Ретрокамера «Das Auge IV»</p>
-                      <p className="product-card__price"><span className="visually-hidden">Цена:</span>73 450 ₽
-                      </p>
-                    </div>
-                    <div className="product-card__buttons">
-                      <button className="btn btn--purple product-card__btn" type="button">Купить
-                      </button>
-                      <a className="btn btn--transparent" href="#">Подробнее
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="pagination">
-                    <ul className="pagination__list">
-                      <li className="pagination__item"><a className="pagination__link pagination__link--active" href="1">1</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="2">2</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link" href="3">3</a>
-                      </li>
-                      <li className="pagination__item"><a className="pagination__link pagination__link--text" href="2">Далее</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+              <ProductField />
             </div>
           </div>
         </section>

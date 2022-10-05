@@ -1,17 +1,14 @@
 import MainCatalog from '../../pages/main-catalog/main-catalog';
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../../const';
 
 function App(): JSX.Element {
   return(
-    <Router>
-      <Routes>
-        <Route path="/" element={<MainCatalog/>}/>
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path={AppRoute.Main} element={<Navigate to={AppRoute.Catalog} replace />} />
+      <Route path={AppRoute.Catalog} element={<MainCatalog />} />
+      <Route path={AppRoute.CatalogPage} element={<MainCatalog />} />
+    </Routes>
   );
 }
 

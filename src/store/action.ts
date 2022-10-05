@@ -1,3 +1,4 @@
+import { Promo } from './../types/data';
 import {AxiosInstance} from 'axios';
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, State} from '../types/state';
@@ -61,6 +62,14 @@ export const fetchSimilarAction = createAsyncThunk<Camera[], number, {
   'data/fetchSimilar',
   async (id, {dispatch, extra: api}) => {
     const {data} = await api.get<Camera[]>(`${APIRoute.Cameras}/${id}${APIRoute.Similar}`);
+    return data;
+  }
+);
+
+export const fetchPromoProductAction = createAsyncThunk<Promo, undefined, {extra: AxiosInstance}>(
+  'data/fetchPromoProduct',
+  async (_arg, {extra: api}) => {
+    const {data} = await api.get<Promo>(APIRoute.Promo);
     return data;
   }
 );
