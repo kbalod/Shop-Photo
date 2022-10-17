@@ -35,7 +35,7 @@ function Pagination({pagesCount,currentPage,setCurrentPage}:Item) : JSX.Element 
             ))
         }
         {currentPage < pagesCount &&
-          <li className="pagination__item">
+          <li className="pagination__item" data-testid={'pagination'}>
             <Link className="pagination__link pagination__link--text"
               to={`${AppRoute.Catalog}/page_${String(currentPage + PAGE_STEP)}`}
               onClick={() => setCurrentPage(currentPage + PAGE_STEP)}

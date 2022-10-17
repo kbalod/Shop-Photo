@@ -7,7 +7,7 @@ type Props = {
 
 function ProductCardList ({products}: Props) {
   return (
-    <div className="cards catalog__cards">
+    <div className="cards catalog__cards" data-testid={'cards'}>
       {products.map((product : Camera) => <ProductCard key={product.id} product={product}/>)}
     </div>
   );

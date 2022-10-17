@@ -3105,7 +3105,7 @@ button,
   margin-right: 0;
 }
 
-.slider-controls {
+.slider-controls-new {
   position: absolute;
   top: 50%;
   display: -webkit-box;
@@ -3651,12 +3651,8 @@ button,
   }
 
   .tabs__control:hover,
-  .tabs__control:focus {
-    background-color: #f4f4fc;
-  }
-
+  .tabs__control:focus,
   .tabs__control:active {
     background-color: #f4f4fc;
-    pointer-events: none;
   }
 }

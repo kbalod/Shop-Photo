@@ -4,15 +4,16 @@ import { Camera } from '../../types/data';
 import ProductStars from '../product-stars/product-stars';
 
 type Card = {
-    product: Camera;
+    product: Camera,
+    type?:string,
 }
 
-function ProductCard ({product}:Card) : JSX.Element {
+function ProductCard ({product,type}:Card) : JSX.Element {
   const {id,name,rating,price,previewImg,
     previewImg2x,previewImgWebp,previewImgWebp2x,reviewCount} = product;
 
   return (
-    <div className="product-card">
+    <div className={`product-card ${type === 'similar' ? 'is-active' : ''}`}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`/${previewImgWebp} , /${previewImgWebp2x} 2x`}/>

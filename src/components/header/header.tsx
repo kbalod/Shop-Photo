@@ -4,7 +4,7 @@ import {ReactComponent as IconBasket} from '../../assets/img/sprite/icon-basket.
 
 function Header (): JSX.Element {
   return(
-    <header className="header" id="header">
+    <header className="header" id="header" data-testid={'header'}>
       <div className="container">
         <Link className="header__logo" to={'/'} aria-label="Переход на главную">
           <IconLogo/>
@@ -44,7 +44,8 @@ function Header (): JSX.Element {
           <button className="form-search__reset" type="reset">
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
-            </svg><span className="visually-hidden">Сбросить поиск</span>
+            </svg>
+            <span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
         <Link className="header__basket-link" to={'/'}>

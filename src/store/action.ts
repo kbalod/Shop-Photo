@@ -17,7 +17,7 @@ export const fetchCamerasAction = createAsyncThunk<Camera[], undefined, {
   },
 );
 
-export const fetchCameraAction = createAsyncThunk<Camera, number, {
+export const fetchCameraAction = createAsyncThunk<Camera, string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -29,7 +29,7 @@ export const fetchCameraAction = createAsyncThunk<Camera, number, {
   },
 );
 
-export const fetchReviewsAction = createAsyncThunk<Review[], number, {
+export const fetchReviewsAction = createAsyncThunk<Review[], string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance
@@ -47,14 +47,13 @@ export const postReviewAction = createAsyncThunk<Review[],PostReview, {
   extra: AxiosInstance
 }>(
   'data/postReview',
-  async ({cameraId, userName, advantage,disadvantage,review,rating}, {dispatch, extra: api}) => {
-    const {data} = await api.post<Review[]>(`${APIRoute.Cameras}/${cameraId}${APIRoute.Reviews}`,
-      {cameraId, userName, advantage,disadvantage,review,rating});
+  async (review, {extra: api}) => {
+    const {data} = await api.post(APIRoute.Reviews, review);
     return data;
   },
 );
 
-export const fetchSimilarAction = createAsyncThunk<Camera[], number, {
+export const fetchSimilarAction = createAsyncThunk<Camera[], string, {
   dispatch: AppDispatch,
   state: State,
   extra: AxiosInstance

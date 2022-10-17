@@ -5,6 +5,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.0",
     "axios": "^0.21.1",
+    "dayjs": "^1.11.5",
     "history": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -43,7 +44,7 @@
   "devDependencies": {
     "@jedmao/redux-mock-store": "^3.0.5",
     "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
+    "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.2.0",
     "@types/faker": "^5.5.8",
     "@types/jest": "^26.0.24",
@@ -54,6 +55,7 @@
     "axios-mock-adapter": "^1.19.0",
     "eslint-config-htmlacademy": "^6.0.0",
     "faker": "^5.5.3",
+    "jest": "27.5.1",
     "redux-devtools-extension": "2.13",
     "typescript": "^4.8.3"
   }

@@ -14,10 +14,10 @@ export type CameraData = {
   };
 
 export type ErrorsData = {
-    authError: boolean,
-    offerDataError: boolean,
-    offerCommentsError: boolean,
-    offerNearbyError: boolean,
+    productsDataError: boolean,
+    productDataError: boolean,
+    productCommentsError: boolean,
+    productSimilarError: boolean,
     newCommentError: boolean
   };
 

@@ -8,9 +8,11 @@ export enum APIRoute {
 
 export const AppRoute = {
   Main : '/',
-  Camera : '/offer',
+  Camera : '/product/',
+  Product: '/product/:id',
   CatalogPage : '/catalog/:page',
   Catalog : '/catalog',
+  NotFound : '*',
 } as const;
 
 export enum NameSpace {
@@ -26,5 +28,27 @@ export enum Star{
     five = 5.
 }
 
+export const StarForm = [
+  'Отлично',
+  'Хорошо',
+  'Нормально',
+  'Плохо',
+  'Ужасно',
+];
+export const getTitle = (index: number) => StarForm.find((_item, idx) => index === (idx + 1));
+
+export const DateData = {
+  Locale: 'ru',
+  ReviewFormat: 'DD MMMM',
+  DateTimeFormat: 'YYYY-MM-DD',
+} as const;
+
 export const PRODUCTS_PER_VIEW = 9;
 export const DEFAULT_PAGE = 1;
+export const PRODUCT_STEP = 1;
+
+export const DEFAULT_MAX_SIMILAR = 3;
+export const SIMILAR_STEP = 1;
+export const START_SIMILAR_INDEX = 0;
+
+export const REVIEWS_STEP = 3;
