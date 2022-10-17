@@ -26,7 +26,7 @@ function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
   const onSubmit = async (newReview: PostReview) => {
     await dispatch(postReviewAction(newReview));
     setFormDisabled(false);
-    if(!newCommentError){
+    if(!newCommentError && formState.userName && formState.advantage && formState.disadvantage && formState.review && formState.rating){
       await dispatch(fetchReviewsAction(id));
       setOpenModal(false);
       setSuccessPost(true);
