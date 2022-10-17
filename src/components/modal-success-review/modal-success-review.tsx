@@ -1,18 +1,24 @@
-import React from 'react';
-
 type ModalAction = {
     setSuccessPost: (boolean : boolean) => void,
 }
 function ModalSuccessReview({setSuccessPost}: ModalAction) : JSX.Element {
-  function handleOnClick (e:any) : void {
-    if(e.target.className.contains('modal__content')){
+  document.body.classList.add('scroll-lock');
+  const handleOnClickSuccess = () => {
+    document.body.classList.remove('scroll-lock');
+    setSuccessPost(false);
+  };
+  const handlePressEsc = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      document.removeEventListener('keydown', handlePressEsc);
+      document.body.classList.remove('scroll-lock');
       setSuccessPost(false);
     }
-  }
+  };
+  document.addEventListener('keydown', handlePressEsc);
   return (
     <div className="modal is-active modal--narrow">
       <div className="modal__wrapper">
-        <div className="modal__overlay" onClick={handleOnClick}></div>
+        <div className="modal__overlay" onClick={handleOnClickSuccess}></div>
         <div className="modal__content">
           <p className="title title--h4">Спасибо за отзыв</p>
           <svg className="modal__icon" width="80" height="78" aria-hidden="true">

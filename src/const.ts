@@ -51,4 +51,5 @@ export const DEFAULT_MAX_SIMILAR = 3;
 export const SIMILAR_STEP = 1;
 export const START_SIMILAR_INDEX = 0;
 
+export const MIN_REVIEW_LENGTH = 1;
 export const REVIEWS_STEP = 3;

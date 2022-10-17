@@ -1,4 +1,5 @@
 import { FormEvent, useState } from 'react';
+import { MIN_REVIEW_LENGTH } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchReviewsAction, postReviewAction } from '../../store/action';
 import { getNewCommentError } from '../../store/errors-data/selectors';
@@ -10,7 +11,6 @@ type Modal = {
   setSuccessPost: (boolean:boolean) => void,
 }
 function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
-  const MIN_REVIEW_LENGTH = 1;
   const dispatch = useAppDispatch();
   const newCommentError = useAppSelector(getNewCommentError);
   const [formDisabled, setFormDisabled] = useState<boolean>(false);
@@ -26,10 +26,16 @@ function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
   const onSubmit = async (newReview: PostReview) => {
     await dispatch(postReviewAction(newReview));
     setFormDisabled(false);
-    if(!newCommentError && formState.userName && formState.advantage && formState.disadvantage && formState.review && formState.rating){
+    if(Object.values(formState).every((item) => !!item)){
+      document.body.classList.remove('scroll-lock');
       await dispatch(fetchReviewsAction(id));
       setOpenModal(false);
       setSuccessPost(true);
+    }
+    if(newCommentError){
+      return(
+        <p>Ошибка отправки отзыва, попробуйте перезагрузить страницу</p>
+      );
     }
   };
 
@@ -38,10 +44,24 @@ function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
     setFormDisabled(true);
     onSubmit(formState);
   };
+  const handleCloseModal = () => {
+    document.removeEventListener('keydown', handleCloseModal);
+    document.body.classList.remove('scroll-lock');
+    setOpenModal(false);
+  };
+  const handlePressEsc = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      document.removeEventListener('keydown', handleCloseModal);
+      document.body.classList.remove('scroll-lock');
+      setOpenModal(false);
+    }
+  };
+  document.addEventListener('keydown', handlePressEsc);
+  document.body.classList.add('scroll-lock');
   return (
     <div className="modal is-active">
-      <div className="modal__wrapper">
-        <div className="modal__overlay"></div>
+      <div className="modal__wrapper" onKeyDown={()=>handleCloseModal}>
+        <div className="modal__overlay" onClick={handleCloseModal}></div>
         <div className="modal__content">
           <p className="title title--h4">Оставить отзыв</p>
           <div className="form-review">
@@ -124,7 +144,7 @@ function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
               <button className="btn btn--purple form-review__btn" type="submit">Отправить отзыв</button>
             </form>
           </div>
-          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={() => setOpenModal(false)}>
+          <button className="cross-btn" type="button" aria-label="Закрыть попап" onClick={handleCloseModal}>
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
             </svg>
