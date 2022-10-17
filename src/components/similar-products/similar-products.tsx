@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { DEFAULT_MAX_SIMILAR, SIMILAR_STEP, START_SIMILAR_INDEX } from '../../const';
+import { DEFAULT_MAX_SIMILAR, START_SIMILAR_INDEX } from '../../const';
 import { Camera } from '../../types/data';
 import ProductCard from '../product-card/product-card';
 import SimilarProductsButtons from '../similar-products-buttons/similar-products-buttons';
