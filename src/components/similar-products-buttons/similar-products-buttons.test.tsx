@@ -3,7 +3,7 @@ import { fakeCamera } from '../../mock/mock';
 import SimilarProductsButtons from './similar-products-buttons';
 
 const fakeVisibleSimilar = [fakeCamera(),fakeCamera(),fakeCamera(),fakeCamera(),fakeCamera(),fakeCamera()];
-const fakeSetCurrentSimilar = jest.fn();
+const fakeFunction = jest.fn();
 
 describe('Component: SimilarProductsButtons', () => {
   it('should render correctly', () => {
@@ -11,7 +11,7 @@ describe('Component: SimilarProductsButtons', () => {
       <SimilarProductsButtons
         visibleSimilar={fakeVisibleSimilar}
         currentSimilar={0}
-        setCurrentSimilar={fakeSetCurrentSimilar}
+        setCurrentSimilar={fakeFunction}
       />);
 
     expect(screen.getByTestId('left-arrow')).toBeInTheDocument();

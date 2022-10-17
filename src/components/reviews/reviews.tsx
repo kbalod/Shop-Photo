@@ -30,7 +30,7 @@ function Reviews({setOpenModal,reviews}: Props) {
             {visibleReview.map((review) => <ProductReview key={review.id} review={review}/>)}
           </ul>
           <div className="review-block__buttons">
-            {visibleReview.length &&
+            {visibleReview.length && reviews.length - 1 > visibleReview.length &&
               <button className="btn btn--purple"
                 type="button"
                 onClick={()=>setVisibleReviewsCount(visibleReviewsCount + REVIEWS_STEP)}

@@ -3133,18 +3133,18 @@ button,
   transition: opacity 0.3s ease;
 }
 
-.slider-controls svg {
+.slider-controls-new svg {
   width: 7px;
   height: 12px;
 }
 
-.slider-controls:disabled {
+.slider-controls-new:disabled {
   color: #dddddd;
   background-color: #f8f8f8;
   pointer-events: none;
 }
 
-.slider-controls.disabled {
+.slider-controls-new.disabled {
   color: #dddddd;
   background-color: #f8f8f8;
   pointer-events: none;
