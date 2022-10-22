@@ -7,7 +7,7 @@ import HistoryRouter from '../history-route/history-route';
 import Reviews from './reviews';
 
 
-const fakeReviews = [fakeReview(),fakeReview()];
+const fakeReviews = [fakeReview(),fakeReview(),fakeReview(),fakeReview(),fakeReview(),fakeReview(),fakeReview()];
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
 const fakeSetOpenModal = jest.fn();

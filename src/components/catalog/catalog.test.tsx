@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-route/history-route';
 import { fakeCamera, fakePromo} from '../../mock/mock';
-import { api } from '../../store';
+import { api } from '../../store/store';
 import { State } from '../../types/state';
 import Catalog from './catalog';
 

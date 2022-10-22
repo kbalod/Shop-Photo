@@ -6,7 +6,7 @@ import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import HistoryRouter from '../history-route/history-route';
 import { fakeCamera} from '../../mock/mock';
-import { api } from '../../store';
+import { api } from '../../store/store';
 import { State } from '../../types/state';
 import ModalReview from './modal-review';
 
@@ -33,10 +33,12 @@ const store = makeMockStore({
   }
 });
 
-describe('Component: ProductDetailsCard', () => {
-  it('should render correctly with ProductDetailsCard',async () => {
+describe('Component: ModalReview', () => {
+  it('should render correctly with ModalReview',async () => {
     const fakeFunction = jest.fn();
     const fakeId = '1';
+    window.scrollTo = jest.fn();
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
@@ -44,6 +46,7 @@ describe('Component: ProductDetailsCard', () => {
             id={fakeId}
             setOpenModal={fakeFunction}
             setSuccessPost={fakeFunction}
+            focus
           />
         </HistoryRouter>
       </Provider>

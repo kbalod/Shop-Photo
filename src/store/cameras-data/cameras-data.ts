@@ -6,6 +6,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState: CamerasData = {
   camera: [],
+  camerasTotalCount: 0,
+  currentPage : 1,
   isDataLoaded: false,
   promo: null,
 };
@@ -13,11 +15,19 @@ const initialState: CamerasData = {
 export const camerasData = createSlice({
   name: NameSpace.Cameras,
   initialState,
-  reducers: {},
+  reducers: {
+    setCurrentPageStore : (state,action) => {
+      state.currentPage = action.payload;
+    }
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchCamerasAction.fulfilled, (state, action) => {
-        state.camera = action.payload;
+        const {camera,totalCameras} = action.payload;
+        state.camera = camera;
+        if(!state.isDataLoaded){
+          state.camerasTotalCount = totalCameras;
+        }
         state.isDataLoaded = true;
       })
       .addCase(fetchPromoProductAction.fulfilled, (state, action) => {
@@ -25,3 +35,5 @@ export const camerasData = createSlice({
       });
   },
 });
+
+export const {setCurrentPageStore} = camerasData.actions;

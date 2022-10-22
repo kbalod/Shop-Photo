@@ -1,10 +1,12 @@
 import { Camera, Review, Promo } from './data';
-import {store} from '../store/index.js';
+import {store} from '../store/store.js';
 
 export type CamerasData = {
     camera: Camera[];
     isDataLoaded: boolean;
     promo: Promo | null;
+    camerasTotalCount: number;
+    currentPage: number,
   };
 
 export type CameraData = {

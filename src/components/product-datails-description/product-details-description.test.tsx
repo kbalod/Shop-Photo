@@ -1,15 +1,26 @@
-import { render, screen } from '@testing-library/react';
-import {fakeCamera} from '../../mock/mock';
+import { configureMockStore } from '@jedmao/redux-mock-store';
+import {render, screen} from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Provider } from 'react-redux';
+import { fakeCamera } from '../../mock/mock';
+import HistoryRouter from '../history-route/history-route';
 import ProductDetailsDescription from './product-details-description';
 
-const fakeProduct = fakeCamera();
 
-describe('Component: ProductDetailsDescription', () => {
-  it('should render correctly with ProductDetailsDescription', () => {
+const mockStore = configureMockStore();
+const history = createMemoryHistory();
+
+describe('Component: ModalSuccessReview', () => {
+  it('should render correctly with ModalSuccessReview', async () => {
+    const store = mockStore();
     render(
-      <ProductDetailsDescription
-        product={fakeProduct}
-      />
+      <Provider store={store}>
+        <HistoryRouter history={history}>
+          <ProductDetailsDescription
+            product={fakeCamera()}
+          />
+        </HistoryRouter>
+      </Provider>
     );
 
     expect(screen.getByText(/Цена/i)).toBeInTheDocument();

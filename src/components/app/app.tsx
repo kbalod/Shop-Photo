@@ -2,7 +2,7 @@ import MainCatalog from '../../pages/main-catalog/main-catalog';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import ProductDetailed from '../../pages/product-detailed/product-detailed';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector } from '../../hooks/useDispatch';
 import { getDataLoadedStatus } from '../../store/cameras-data/selectors';
 import { getProductsDataError } from '../../store/errors-data/selectors';
 import NotFound from '../../pages/not-found/not-found';
@@ -24,6 +24,7 @@ function App(): JSX.Element {
       <Route path={AppRoute.Catalog} element={<MainCatalog />} />
       <Route path={AppRoute.CatalogPage} element={<MainCatalog />} />
       <Route path={AppRoute.Product} element={<ProductDetailed />}/>
+      <Route path={`${AppRoute.Product}/:tabs`} element={<ProductDetailed />}/>
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

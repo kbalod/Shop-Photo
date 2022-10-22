@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getPromoProduct } from '../../store/cameras-data/selectors';
 import Banner from '../banner/banner';
@@ -14,11 +15,11 @@ function Catalog () : JSX.Element {
           <div className="container">
             <ul className="breadcrumbs__list">
               <li className="breadcrumbs__item">
-                <a className="breadcrumbs__link" href="index.html">Главная
+                <Link className="breadcrumbs__link" to={'/'}>Главная
                   <svg width="5" height="8" aria-hidden="true">
                     <use xlinkHref="#icon-arrow-mini"></use>
                   </svg>
-                </a>
+                </Link>
               </li>
               <li className="breadcrumbs__item">
                 <span className="breadcrumbs__link breadcrumbs__link--active">Каталог</span>

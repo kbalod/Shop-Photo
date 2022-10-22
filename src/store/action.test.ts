@@ -3,11 +3,10 @@ import { fetchCamerasAction, fetchSimilarAction, fetchCameraAction, fetchPromoPr
 import { APIRoute } from './../const';
 import MockAdapter from 'axios-mock-adapter';
 import { configureMockStore } from '@jedmao/redux-mock-store';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { Action } from '@reduxjs/toolkit';
+import thunk from 'redux-thunk';
+import { Action,ThunkDispatch } from '@reduxjs/toolkit';
 import { State } from '../types/state';
 import { createAPI } from '../service/service';
-
 
 describe('Async actions', () => {
   const api = createAPI();
@@ -19,23 +18,25 @@ describe('Async actions', () => {
         Action,
         ThunkDispatch<State, typeof api, Action>
       >(middlewares);
+  describe('GetCameras', () => {
+    it('when GET /cameras and server response "ok" should set actions types to pending and fulfilled', async () => {
+      const camerasArray = [fakeCamera()];
+      const startIndex = '1';
+      const FAKE_TOTAL_COUNT = 40;
+      mockAPI.onGet(`${APIRoute.Cameras}?_start=0&_limit=9`).reply(200,{camera:camerasArray, totalCameras: FAKE_TOTAL_COUNT},{
+        'x-total-count': FAKE_TOTAL_COUNT,
+      });
+      const store = mockStore();
 
-  it('when GET /cameras and server response "ok" should set actions types to pending and fulfilled', async () => {
-    const cameras = [fakeCamera()];
-    const store = mockStore();
+      await store.dispatch(fetchCamerasAction(startIndex));
 
-    mockAPI
-      .onGet(APIRoute.Cameras)
-      .reply(200, cameras);
+      const actions = store.getActions().map(({type}) => type);
 
-    await store.dispatch(fetchCamerasAction());
-
-    const actionsTypes = store.getActions().map((action: Action<string>) => action.type);
-
-    expect(actionsTypes).toEqual([
-      fetchCamerasAction.pending.type,
-      fetchCamerasAction.fulfilled.type
-    ]);
+      expect(actions).toEqual([
+        fetchCamerasAction.pending.type,
+        fetchCamerasAction.fulfilled.type
+      ]);
+    });
   });
   it('should dispatch fetchSimilarCamerasAction when GET /cameras/id/similar', async () => {
     const fakeId = '1';

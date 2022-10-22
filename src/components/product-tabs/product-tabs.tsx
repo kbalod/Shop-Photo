@@ -1,3 +1,6 @@
+import {useEffect} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { AppRoute } from '../../const';
 import { Camera } from '../../types/data';
 
 type Props = {
@@ -7,18 +10,43 @@ type Props = {
 }
 
 function ProductTabs({product,description,setDescription}: Props) {
+  const params = useParams();
+  const navigate = useNavigate();
+  const {id} = params;
+  const handleTabButtonClick = (e: React.MouseEvent<HTMLElement>) => {
+    const target = e.target as HTMLElement;
+    if(target.dataset.tab === 'option'){
+      setDescription(true);
+      navigate(`${AppRoute.Camera}${id}/${'option'}`);
+    }
+    if(target.dataset.tab === 'description'){
+      setDescription(false);
+      navigate(`${AppRoute.Camera}${id}/${'description'}`);
+    }
+  };
+  useEffect(() => {
+    window.scrollTo({top: 0});
+    if(params.tabs === 'option'){
+      setDescription(true);
+    }
+    if(params.tabs === 'description'){
+      setDescription(false);
+    }
+  }, [id, params.tabs, setDescription]);
   return (
     <div className="tabs product__tabs">
       <div className="tabs__controls product__tabs-controls">
-        <button className={`tabs__control ${description === false ? 'is-active' : ''}`}
+        <button className={`tabs__control ${description === true ? 'is-active' : ''}`}
           type="button"
-          onClick={()=> setDescription(false)}
+          onClick={handleTabButtonClick}
+          data-tab={'option'}
         >
           Характеристики
         </button>
-        <button className={`tabs__control ${description === true ? 'is-active' : ''}`}
+        <button className={`tabs__control ${description === false ? 'is-active' : ''}`}
           type="button"
-          onClick={()=> setDescription(true)}
+          onClick={handleTabButtonClick}
+          data-tab={'description'}
         >
           Описание
         </button>

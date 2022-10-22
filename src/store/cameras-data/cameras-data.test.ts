@@ -14,6 +14,8 @@ describe('Reducer: offer', () => {
       camera: [],
       isDataLoaded: false,
       promo: null,
+      camerasTotalCount: 0,
+      currentPage: 1,
     };
 
   });
@@ -22,8 +24,11 @@ describe('Reducer: offer', () => {
       .toEqual(state);
   });
   it('should get products value', ()=> {
-    expect(camerasData.reducer(state,{type: fetchCamerasAction.fulfilled.type, payload: productsFake}))
-      .toEqual({...state, camera: productsFake,isDataLoaded:true});
+    expect(camerasData.reducer(state,{type: fetchCamerasAction.fulfilled.type, payload: {
+      camera: productsFake,
+      totalCameras: 4,
+    }}))
+      .toEqual({...state, camera: productsFake,isDataLoaded:true,camerasTotalCount: 4});
   });
   it('should get promo value', ()=> {
     expect(camerasData.reducer(state,{type: fetchPromoProductAction.fulfilled.type, payload: promoFake}))

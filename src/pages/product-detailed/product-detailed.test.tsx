@@ -4,11 +4,11 @@ import { Action } from '@reduxjs/toolkit';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../history-route/history-route';
 import { fakeCamera} from '../../mock/mock';
 import { api } from '../../store/store';
 import { State } from '../../types/state';
-import ProductDetailsCard from './product-details-card';
+import HistoryRouter from '../../components/history-route/history-route';
+import ProductDetailed from './product-detailed';
 
 const history = createMemoryHistory();
 const middlewares = [thunk.withExtraArgument(api)];
@@ -33,16 +33,20 @@ const store = makeMockStore({
   }
 });
 
-describe('Component: ProductDetailsCard', () => {
-  it('should render correctly with ProductDetailsCard',async () => {
+describe('Component: ModalReview', () => {
+  it('should render correctly with ModalReview',async () => {
+    window.scrollTo = jest.fn();
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <ProductDetailsCard />
+          <ProductDetailed />
         </HistoryRouter>
       </Provider>
     );
 
+    expect(screen.getByTestId('header')).toBeInTheDocument();
     expect(await screen.findByTestId('page')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 });

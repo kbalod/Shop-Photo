@@ -1,24 +1,42 @@
 import { Link} from 'react-router-dom';
-import { AppRoute } from '../../const';
+import { AppRoute, PRODUCTS_PER_VIEW } from '../../const';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useDispatch';
+import { setCurrentPageStore } from '../../store/cameras-data/cameras-data';
+import { getCamerasPage } from '../../store/cameras-data/selectors';
 
 type Item = {
   pagesCount: number,
-  currentPage:number,
-  setCurrentPage: (arg: number) => void,
 }
 
-function Pagination({pagesCount,currentPage,setCurrentPage}:Item) : JSX.Element {
+function Pagination({pagesCount}:Item) : JSX.Element {
+  const dispatch = useAppDispatch();
+  const currentPage = useAppSelector(getCamerasPage);
   const PAGE_STEP = 1;
-  const paginationArray = Array.from({length: pagesCount},(_,i)=>i + PAGE_STEP);
+  const countInPage = Math.ceil(pagesCount / PRODUCTS_PER_VIEW);
+  const paginationArray = Array.from({length: countInPage},(_,i)=>i + PAGE_STEP);
+
+  const handleOnClickPrev = () =>{
+    dispatch(setCurrentPageStore(currentPage - PAGE_STEP));
+  };
+  const handleOnClickNext = () =>{
+    dispatch(setCurrentPageStore(currentPage + PAGE_STEP));
+  };
+  const handleOnClickPage = (e: MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    if (target.dataset.tab){
+      dispatch(setCurrentPageStore(Number(target.dataset.tab)));
+    }
+  };
 
   return (
-    <div className="pagination">
+    <div className="pagination" data-testid={'pagination'}>
       <ul className="pagination__list">
-        {currentPage !== PAGE_STEP &&
+        {currentPage !== 1 &&
           <li className="pagination__item">
             <Link className="pagination__link pagination__link--text"
               to={`${AppRoute.Catalog}/page_${String(currentPage - PAGE_STEP)}`}
-              onClick={() => setCurrentPage(currentPage - PAGE_STEP)}
+              onClick={handleOnClickPrev}
             >Назад
             </Link>
           </li>}
@@ -28,17 +46,18 @@ function Pagination({pagesCount,currentPage,setCurrentPage}:Item) : JSX.Element 
               <li className="pagination__item" key={pageNumber}>
                 <Link className={`pagination__link ${currentPage === pageNumber && 'pagination__link--active'}`}
                   to={`${AppRoute.Catalog}/page_${String(pageNumber)}`}
-                  onClick={() => setCurrentPage(pageNumber)}
+                  data-page={`${String(pageNumber)}`}
+                  onClick={()=>handleOnClickPage}
                 >{pageNumber}
                 </Link>
               </li>
             ))
         }
-        {currentPage < pagesCount &&
+        {currentPage < countInPage &&
           <li className="pagination__item" data-testid={'pagination'}>
             <Link className="pagination__link pagination__link--text"
-              to={`${AppRoute.Catalog}/page_${String(currentPage + PAGE_STEP)}`}
-              onClick={() => setCurrentPage(currentPage + PAGE_STEP)}
+              to={`${AppRoute.Catalog}/page_${currentPage + PAGE_STEP}`}
+              onClick={handleOnClickNext}
             >Далее
             </Link>
           </li>}

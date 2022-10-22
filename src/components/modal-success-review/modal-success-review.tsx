@@ -18,8 +18,8 @@ function ModalSuccessReview({setSuccessPost}: ModalAction) : JSX.Element {
   };
   document.addEventListener('keydown', handlePressEsc);
   return (
-    <FocusTrap>
-      <div className="modal is-active modal--narrow">
+    <div className="modal is-active modal--narrow">
+      <FocusTrap>
         <div className="modal__wrapper">
           <div className="modal__overlay" onClick={handleOnClickSuccess}></div>
           <div className="modal__content">
@@ -45,8 +45,8 @@ function ModalSuccessReview({setSuccessPost}: ModalAction) : JSX.Element {
             </button>
           </div>
         </div>
-      </div>
-    </FocusTrap>
+      </FocusTrap>
+    </div>
   );
 }
 

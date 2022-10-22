@@ -4,11 +4,11 @@ import { Action } from '@reduxjs/toolkit';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
-import HistoryRouter from '../history-route/history-route';
 import { fakeCamera} from '../../mock/mock';
 import { api } from '../../store/store';
 import { State } from '../../types/state';
-import ProductDetailsCard from './product-details-card';
+import MainCatalog from './main-catalog';
+import HistoryRouter from '../../components/history-route/history-route';
 
 const history = createMemoryHistory();
 const middlewares = [thunk.withExtraArgument(api)];
@@ -19,10 +19,12 @@ const makeMockStore = configureMockStore<
 >(middlewares);
 
 const store = makeMockStore({
-  CAMERA:{
-    camera: fakeCamera(),
-    review: [],
-    similar: [],
+  CAMERAS:{
+    camera: [fakeCamera()],
+    camerasTotalCount: 10,
+    currentPage : 1,
+    isDataLoaded: true,
+    promo: null,
   },
   ERRORS:{
     productsDataError: false,
@@ -33,16 +35,20 @@ const store = makeMockStore({
   }
 });
 
-describe('Component: ProductDetailsCard', () => {
-  it('should render correctly with ProductDetailsCard',async () => {
+describe('Component: ModalReview', () => {
+  it('should render correctly with ModalReview',async () => {
+    window.scrollTo = jest.fn();
+
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <ProductDetailsCard />
+          <MainCatalog />
         </HistoryRouter>
       </Provider>
     );
 
-    expect(await screen.findByTestId('page')).toBeInTheDocument();
+    expect(screen.getByTestId('header')).toBeInTheDocument();
+    expect(screen.getByRole('main')).toBeInTheDocument();
+    expect(screen.getByTestId('footer')).toBeInTheDocument();
   });
 });

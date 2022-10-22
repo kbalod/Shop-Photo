@@ -1,30 +1,38 @@
-import { useState} from 'react';
+import {useEffect} from 'react';
 import CatalogSort from '../catalog-sort/catalog-sort';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { getProducts, getDataLoadedStatus } from '../../store/cameras-data/selectors';
+import { getDataLoadedStatus, getCamerasTotalCount, getCamerasPage } from '../../store/cameras-data/selectors';
 import Pagination from '../pagination/pagination';
 import ProductCardList from '../product-card-list/product-card-list';
-import { DEFAULT_PAGE, PRODUCTS_PER_VIEW } from '../../const';
+import { useAppDispatch } from '../../hooks/useDispatch';
+import { fetchCamerasAction } from '../../store/action';
+import { useParams } from 'react-router-dom';
+import { setCurrentPageStore } from '../../store/cameras-data/cameras-data';
+import { CutPage } from '../../const';
 
 
 function ProductField() {
-  const products = useAppSelector(getProducts);
+  const {page} = useParams();
+  const dispatch = useAppDispatch();
   const loading = useAppSelector(getDataLoadedStatus);
-
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
-  const pagesCount = Math.ceil(products.length / PRODUCTS_PER_VIEW);
-
+  const pagesCount = useAppSelector(getCamerasTotalCount);
+  const currentPage = useAppSelector(getCamerasPage);
+  useEffect(() => {
+    if(page !== undefined){
+      dispatch(setCurrentPageStore(Number(page.substring(CutPage.form,CutPage.to))));
+    }
+  }, [dispatch, page]);
+  useEffect(() => {
+    dispatch(fetchCamerasAction(String(currentPage)));
+  }, [currentPage, dispatch]);
   return (
     <div className="catalog__content" data-testid={'catalog'}>
       <CatalogSort />
-      {loading ?
-        <ProductCardList products={products.slice(PRODUCTS_PER_VIEW * currentPage - PRODUCTS_PER_VIEW, PRODUCTS_PER_VIEW * currentPage)} />
-        : ''}
-      {!!products.length &&
+      {loading &&
+        <ProductCardList />}
+      {loading &&
           <Pagination
             pagesCount={pagesCount}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
           />}
     </div>
   );

@@ -1,4 +1,4 @@
-import { api } from '../../store/index';
+import { api } from '../../store/store';
 import { State } from '../../types/state';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';

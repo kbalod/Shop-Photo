@@ -7,7 +7,7 @@ import { Provider } from 'react-redux';
 import HistoryRouter from '../history-route/history-route';
 import ProductField from './product-field';
 import { fakeCamera} from '../../mock/mock';
-import { api } from '../../store';
+import { api } from '../../store/store';
 import { State } from '../../types/state';
 
 const history = createMemoryHistory();
@@ -23,6 +23,8 @@ const store = makeMockStore({
     camera:[fakeCamera()],
     isDataLoaded:true,
     promo: null,
+    camerasTotalCount: 1,
+    currentPage: 1,
   },
 });
 

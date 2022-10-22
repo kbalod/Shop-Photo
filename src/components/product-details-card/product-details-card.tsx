@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch } from '../../hooks/useDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { fetchCameraAction, fetchReviewsAction, fetchSimilarAction } from '../../store/action';
 import { getProduct, getReview, getSimilar} from '../../store/camera-data/selectors';
@@ -51,7 +51,7 @@ function ProductDetailsCard() {
           : <ReviewEmpty setOpenModal={setOpenModal}/> }
       </div>
       <UpButton />
-      {openModal && id !== undefined && <ModalReview id={id} setOpenModal={setOpenModal} setSuccessPost={setSuccessPost}/> }
+      {openModal && id !== undefined && <ModalReview id={id} setOpenModal={setOpenModal} setSuccessPost={setSuccessPost} focus={false}/> }
       {successPost && <ModalSuccessReview setSuccessPost={setSuccessPost}/>}
     </main>
   );

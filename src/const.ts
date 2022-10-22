@@ -53,3 +53,9 @@ export const START_SIMILAR_INDEX = 0;
 
 export const MIN_REVIEW_LENGTH = 1;
 export const REVIEWS_STEP = 3;
+
+export const CutPage = {
+  form: 5,
+  to: 6,
+} as const;
+

@@ -47,3 +47,8 @@ export type PostReview =
   review: string,
   rating: number,
     }
+
+export type CamerasResponse = {
+    camera: Camera[],
+    totalCameras: number,
+};
