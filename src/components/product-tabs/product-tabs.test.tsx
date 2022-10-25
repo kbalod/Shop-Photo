@@ -12,6 +12,7 @@ import ProductTabs from './product-tabs';
 
 const history = createMemoryHistory();
 const middlewares = [thunk.withExtraArgument(api)];
+window.scrollTo = jest.fn();
 const makeMockStore = configureMockStore<
   State,
   Action,
@@ -24,7 +25,6 @@ const store = makeMockStore({
     isDataLoaded:true,
     promo: null,
     camerasTotalCount: 1,
-    currentPage: 1,
   },
 });
 const fakeSetDescription = jest.fn();

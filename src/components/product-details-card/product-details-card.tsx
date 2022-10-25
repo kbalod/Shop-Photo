@@ -51,7 +51,7 @@ function ProductDetailsCard() {
           : <ReviewEmpty setOpenModal={setOpenModal}/> }
       </div>
       <UpButton />
-      {openModal && id !== undefined && <ModalReview id={id} setOpenModal={setOpenModal} setSuccessPost={setSuccessPost} focus={false}/> }
+      {openModal && id !== undefined && <ModalReview id={id} setOpenModal={setOpenModal} setSuccessPost={setSuccessPost}/> }
       {successPost && <ModalSuccessReview setSuccessPost={setSuccessPost}/>}
     </main>
   );

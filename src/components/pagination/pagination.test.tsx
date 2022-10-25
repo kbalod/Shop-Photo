@@ -26,8 +26,10 @@ const store = makeMockStore({
     isDataLoaded:true,
     promo: null,
     camerasTotalCount: 1,
-    currentPage: 1,
   },
+  PROCESS:{
+    currentPage: 1,
+  }
 });
 describe('Component: ProductCard', () => {
   it('should render correctly with ProductCard',async () => {

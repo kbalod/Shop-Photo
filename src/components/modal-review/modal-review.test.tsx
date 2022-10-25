@@ -46,7 +46,6 @@ describe('Component: ModalReview', () => {
             id={fakeId}
             setOpenModal={fakeFunction}
             setSuccessPost={fakeFunction}
-            focus
           />
         </HistoryRouter>
       </Provider>

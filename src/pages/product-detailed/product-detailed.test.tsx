@@ -10,6 +10,7 @@ import { State } from '../../types/state';
 import HistoryRouter from '../../components/history-route/history-route';
 import ProductDetailed from './product-detailed';
 
+window.scrollTo = jest.fn();
 const history = createMemoryHistory();
 const middlewares = [thunk.withExtraArgument(api)];
 const makeMockStore = configureMockStore<

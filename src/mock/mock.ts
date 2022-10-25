@@ -2,7 +2,7 @@ import { Camera, PostReview, Promo, Review} from './../types/data';
 import { random,image,commerce,datatype} from 'faker';
 
 export const fakeCamera = () : Camera => ({
-  id: Number(random.alphaNumeric(1)),
+  id: datatype.number(),
   name: random.alpha(),
   vendorCode: random.alpha(),
   type: random.alpha(),

@@ -2,8 +2,9 @@ import { Link} from 'react-router-dom';
 import { AppRoute, PRODUCTS_PER_VIEW } from '../../const';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useAppDispatch } from '../../hooks/useDispatch';
-import { setCurrentPageStore } from '../../store/cameras-data/cameras-data';
-import { getCamerasPage } from '../../store/cameras-data/selectors';
+import { setCurrentPage } from '../../store/process-data/process-data';
+import { getCamerasPage } from '../../store/process-data/selectors';
+
 
 type Item = {
   pagesCount: number,
@@ -17,15 +18,15 @@ function Pagination({pagesCount}:Item) : JSX.Element {
   const paginationArray = Array.from({length: countInPage},(_,i)=>i + PAGE_STEP);
 
   const handleOnClickPrev = () =>{
-    dispatch(setCurrentPageStore(currentPage - PAGE_STEP));
+    dispatch(setCurrentPage(currentPage - PAGE_STEP));
   };
   const handleOnClickNext = () =>{
-    dispatch(setCurrentPageStore(currentPage + PAGE_STEP));
+    dispatch(setCurrentPage(currentPage + PAGE_STEP));
   };
   const handleOnClickPage = (e: MouseEvent) => {
     const target = e.target as HTMLButtonElement;
     if (target.dataset.tab){
-      dispatch(setCurrentPageStore(Number(target.dataset.tab)));
+      dispatch(setCurrentPage(Number(target.dataset.tab)));
     }
   };
 

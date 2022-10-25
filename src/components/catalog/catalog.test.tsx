@@ -11,6 +11,7 @@ import { State } from '../../types/state';
 import Catalog from './catalog';
 
 const history = createMemoryHistory();
+window.scrollTo = jest.fn();
 const middlewares = [thunk.withExtraArgument(api)];
 const makeMockStore = configureMockStore<
   State,
@@ -24,6 +25,9 @@ const store = makeMockStore({
     isDataLoaded: true,
     promo: fakePromo(),
   },
+  PROCESS:{
+    currentPage: 1,
+  }
 });
 
 describe('Component: ProductDetailsCard', () => {

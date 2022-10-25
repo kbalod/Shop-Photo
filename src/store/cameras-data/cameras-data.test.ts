@@ -15,7 +15,6 @@ describe('Reducer: offer', () => {
       isDataLoaded: false,
       promo: null,
       camerasTotalCount: 0,
-      currentPage: 1,
     };
 
   });

@@ -21,19 +21,19 @@ const makeMockStore = configureMockStore<
 
 const store = makeMockStore({
   CAMERAS:{
-    camera:[fakeCamera()],
+    camera:[fakeCamera(),fakeCamera()],
     isDataLoaded:true,
     promo: null,
     camerasTotalCount: 1,
-    currentPage: 1,
   },
 });
+const fakeProduct = [fakeCamera()];
 describe('Component: ProductCardList', () => {
   it('should render correctly with ProductCardList', async () => {
     render(
       <Provider store={store}>
         <HistoryRouter history={history}>
-          <ProductCardList />
+          <ProductCardList products={fakeProduct}/>
         </HistoryRouter>
       </Provider>
     );

@@ -1,18 +1,18 @@
 import { FormEvent, useState } from 'react';
 import { MIN_REVIEW_LENGTH } from '../../const';
-import { useAppDispatch, useAppSelector } from '../../hooks/useDispatch';
+import { useAppDispatch} from '../../hooks/useDispatch';
 import { fetchReviewsAction, postReviewAction } from '../../store/action';
 import { getNewCommentError } from '../../store/errors-data/selectors';
 import { PostReview } from '../../types/data';
 import FocusTrap from 'focus-trap-react';
+import { useAppSelector } from '../../hooks/useAppSelector';
 
 type Modal = {
   id: string,
   setOpenModal: (boolean:boolean) => void,
   setSuccessPost: (boolean:boolean) => void,
-  focus:boolean,
 }
-function ModalReview({id,setOpenModal,setSuccessPost,focus} : Modal) : JSX.Element {
+function ModalReview({id,setOpenModal,setSuccessPost} : Modal) : JSX.Element {
   const dispatch = useAppDispatch();
   const newCommentError = useAppSelector(getNewCommentError);
   const [formDisabled, setFormDisabled] = useState<boolean>(false);
@@ -61,9 +61,8 @@ function ModalReview({id,setOpenModal,setSuccessPost,focus} : Modal) : JSX.Eleme
   document.addEventListener('keydown', handlePressEsc);
   document.body.classList.add('scroll-lock');
   return (
-
-    <div className="modal is-active">
-      <FocusTrap paused={focus}>
+    <FocusTrap>
+      <div className="modal is-active">
         <div className="modal__wrapper" onKeyDown={()=>handleCloseModal}>
           <div className="modal__overlay" onClick={handleCloseModal}></div>
           <div className="modal__content">
@@ -155,8 +154,8 @@ function ModalReview({id,setOpenModal,setSuccessPost,focus} : Modal) : JSX.Eleme
             </button>
           </div>
         </div>
-      </FocusTrap>
-    </div>
+      </div>
+    </FocusTrap>
   );
 }
 

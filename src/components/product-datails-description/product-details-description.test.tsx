@@ -9,7 +9,7 @@ import ProductDetailsDescription from './product-details-description';
 
 const mockStore = configureMockStore();
 const history = createMemoryHistory();
-
+window.scrollTo = jest.fn();
 describe('Component: ModalSuccessReview', () => {
   it('should render correctly with ModalSuccessReview', async () => {
     const store = mockStore();

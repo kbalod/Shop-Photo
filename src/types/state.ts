@@ -6,7 +6,6 @@ export type CamerasData = {
     isDataLoaded: boolean;
     promo: Promo | null;
     camerasTotalCount: number;
-    currentPage: number,
   };
 
 export type CameraData = {
@@ -23,6 +22,9 @@ export type ErrorsData = {
     newCommentError: boolean
   };
 
+export type ProcessData = {
+  currentPage: number,
+}
 export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;

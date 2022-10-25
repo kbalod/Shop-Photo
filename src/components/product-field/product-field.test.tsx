@@ -11,6 +11,7 @@ import { api } from '../../store/store';
 import { State } from '../../types/state';
 
 const history = createMemoryHistory();
+window.scrollTo = jest.fn();
 const middlewares = [thunk.withExtraArgument(api)];
 const makeMockStore = configureMockStore<
   State,
@@ -24,8 +25,10 @@ const store = makeMockStore({
     isDataLoaded:true,
     promo: null,
     camerasTotalCount: 1,
-    currentPage: 1,
   },
+  PROCESS:{
+    currentPage: 1,
+  }
 });
 
 describe('Component: ProductField', () => {

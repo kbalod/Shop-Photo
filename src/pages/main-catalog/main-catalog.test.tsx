@@ -12,6 +12,7 @@ import HistoryRouter from '../../components/history-route/history-route';
 
 const history = createMemoryHistory();
 const middlewares = [thunk.withExtraArgument(api)];
+window.scrollTo = jest.fn();
 const makeMockStore = configureMockStore<
   State,
   Action,
@@ -22,7 +23,6 @@ const store = makeMockStore({
   CAMERAS:{
     camera: [fakeCamera()],
     camerasTotalCount: 10,
-    currentPage : 1,
     isDataLoaded: true,
     promo: null,
   },
@@ -32,12 +32,14 @@ const store = makeMockStore({
     productCommentsError: false,
     productSimilarError: false,
     newCommentError: false,
+  },
+  PROCESS: {
+    currentPage:1,
   }
 });
 
 describe('Component: ModalReview', () => {
   it('should render correctly with ModalReview',async () => {
-    window.scrollTo = jest.fn();
 
     render(
       <Provider store={store}>

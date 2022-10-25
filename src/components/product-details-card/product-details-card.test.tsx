@@ -11,6 +11,7 @@ import { State } from '../../types/state';
 import ProductDetailsCard from './product-details-card';
 
 const history = createMemoryHistory();
+window.scrollTo = jest.fn();
 const middlewares = [thunk.withExtraArgument(api)];
 const makeMockStore = configureMockStore<
   State,

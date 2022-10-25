@@ -19,6 +19,7 @@ export enum NameSpace {
     Cameras = 'CAMERAS',
     Camera = 'CAMERA',
     Errors = 'ERRORS',
+    Process = 'PROCESS'
   }
 
 export enum Star{

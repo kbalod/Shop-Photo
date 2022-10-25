@@ -11,7 +11,7 @@ import { fakeCamera } from '../../mock/mock';
 import { AppRoute } from '../../const';
 import HistoryRouter from '../history-route/history-route';
 
-
+window.scrollTo = jest.fn();
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<
   State,
@@ -23,7 +23,8 @@ const history = createMemoryHistory();
 
 const camera = fakeCamera();
 const cameras = [fakeCamera(),fakeCamera(),fakeCamera(),fakeCamera()];
-
+const similar = [fakeCamera(),fakeCamera(),fakeCamera()];
+const fakeID = camera.id;
 const store = mockStore({
   CAMERAS:{
     camera: cameras,
@@ -33,7 +34,7 @@ const store = mockStore({
   CAMERA: {
     camera: camera,
     review: [],
-    similar: [],
+    similar: similar,
   },
   ERRORS: {
     productsDataError: false,
@@ -41,8 +42,10 @@ const store = mockStore({
     productCommentsError: false,
     productSimilarError: false,
     newCommentError: false,
-  }
-
+  },
+  PROCESS: {
+    currentPage:1,
+  },
 });
 
 const fakeApp = (
@@ -54,22 +57,22 @@ const fakeApp = (
 );
 
 describe('Application Routing', () => {
-  it('should render "WelcomeScreen" when user navigate to "/"', () => {
-    history.push(AppRoute.Main);
+  it('should render "WelcomeScreen" when user navigate to "/"', async () => {
+    history.push(AppRoute.Catalog);
 
     render(fakeApp);
 
-    expect(screen.getByText(/Каталог фото- и видеотехники/i)).toBeInTheDocument();
+    expect(screen.getByText(/Интернет-магазин фото- и видеотехники/i)).toBeInTheDocument();
   });
-  it('should render product page when user navigate to "/product/:id"', () => {
-    history.push(`${AppRoute.Camera}${1}`);
+  it('should render product page when user navigate to "/product/:id"', async () => {
+    history.push(`${AppRoute.Camera}${fakeID}/`);
 
     render(fakeApp);
 
     expect(screen.getByText(/Похожие товары/i)).toBeInTheDocument();
   });
 
-  it('should render "NotFound" when user navigate to non-existent route', () => {
+  it('should render "NotFound" when user navigate to non-existent route', async () => {
     history.push('/non-existent-route');
 
     render(fakeApp);
