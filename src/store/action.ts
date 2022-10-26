@@ -76,6 +76,7 @@ export const fetchPromoProductAction = createAsyncThunk<Promo, undefined, {extra
   'data/fetchPromoProduct',
   async (_arg, {extra: api}) => {
     const {data} = await api.get<Promo>(APIRoute.Promo);
+    console.log(data);
     return data;
   }
 );

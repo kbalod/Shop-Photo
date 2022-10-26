@@ -15,6 +15,7 @@ function App(): JSX.Element {
     <Routes>
       <Route path={AppRoute.Main}>
         <Route index element={<MainCatalog />} />
+        <Route path={AppRoute.Catalog} element={<MainCatalog />} />
         <Route path={AppRoute.CatalogPage} element={<MainCatalog />} />
         <Route path={AppRoute.Product} element={<ProductDetailed />}/>
         <Route path={`${AppRoute.Product}/:tabs`} element={<ProductDetailed />}/>

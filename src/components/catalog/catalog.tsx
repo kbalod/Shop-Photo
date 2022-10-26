@@ -1,11 +1,18 @@
+import {useEffect} from 'react';
 import { Link} from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { useAppDispatch } from '../../hooks/useDispatch';
+import { fetchPromoProductAction } from '../../store/action';
 import { getPromoProduct } from '../../store/cameras-data/selectors';
 import Banner from '../banner/banner';
 import ProductField from '../product-field/product-field';
 
 function Catalog () : JSX.Element {
+  const dispatch = useAppDispatch();
   const promo = useAppSelector(getPromoProduct);
+  useEffect(() => {
+    dispatch(fetchPromoProductAction());
+  }, [dispatch]);
 
   return(
     <main>
