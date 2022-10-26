@@ -18,10 +18,14 @@ function Pagination({pagesCount}:Item) : JSX.Element {
   const paginationArray = Array.from({length: countInPage},(_,i)=>i + PAGE_STEP);
 
   const handleOnClickPrev = () =>{
-    dispatch(setCurrentPage(currentPage - PAGE_STEP));
+    if(currentPage){
+      dispatch(setCurrentPage(currentPage - PAGE_STEP));
+    }
   };
   const handleOnClickNext = () =>{
-    dispatch(setCurrentPage(currentPage + PAGE_STEP));
+    if(currentPage){
+      dispatch(setCurrentPage(currentPage + PAGE_STEP));
+    }
   };
   const handleOnClickPage = (e: MouseEvent) => {
     const target = e.target as HTMLButtonElement;

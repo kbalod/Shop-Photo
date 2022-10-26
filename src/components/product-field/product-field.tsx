@@ -11,24 +11,28 @@ import { CutPage } from '../../const';
 import { getCamerasPage } from '../../store/process-data/selectors';
 import { setCurrentPage } from '../../store/process-data/process-data';
 
-function ProductField() {
+
+function ProductField(): JSX.Element {
   const {page} = useParams();
   const dispatch = useAppDispatch();
   const loading = useAppSelector(getDataLoadedStatus);
-  const pagesCount = useAppSelector(getCamerasTotalCount);
   const currentPage = useAppSelector(getCamerasPage);
-  const products = useAppSelector(getProducts);
-  const pageFetch = String(currentPage);
-
-  useEffect(() => {
-    dispatch(fetchCamerasAction(pageFetch));
-  }, [dispatch, pageFetch]);
   useEffect(() => {
     if(page !== undefined){
       dispatch(setCurrentPage(Number(page.substring(CutPage.form,CutPage.to))));
     }
+  }, [currentPage, dispatch, page]);
+  useEffect(() => {
+    if(page !== undefined){
+      dispatch(fetchCamerasAction(String(page.substring(CutPage.form,CutPage.to))));
+    }
+    if(page === undefined){
+      dispatch(fetchCamerasAction('1'));
+    }
   }, [dispatch, page]);
 
+  const pagesCount = useAppSelector(getCamerasTotalCount);
+  const products = useAppSelector(getProducts);
   return (
     <div className="catalog__content" data-testid={'catalog'}>
       <CatalogSort />

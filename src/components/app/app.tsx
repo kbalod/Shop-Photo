@@ -8,17 +8,18 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 
 function App(): JSX.Element {
   const productsDataError = useAppSelector(getProductsDataError);
-
   if (productsDataError) {
     return (<p>Ошибка сервера.Попробуйте перезагрузить страницу</p>);
   }
   return(
     <Routes>
-      <Route path={AppRoute.Main} element={<MainCatalog />} />
-      <Route path={AppRoute.CatalogPage} element={<MainCatalog />} />
-      <Route path={AppRoute.Product} element={<ProductDetailed />}/>
-      <Route path={`${AppRoute.Product}/:tabs`} element={<ProductDetailed />}/>
-      <Route path="*" element={<NotFound />} />
+      <Route path={AppRoute.Main}>
+        <Route index element={<MainCatalog />} />
+        <Route path={AppRoute.CatalogPage} element={<MainCatalog />} />
+        <Route path={AppRoute.Product} element={<ProductDetailed />}/>
+        <Route path={`${AppRoute.Product}/:tabs`} element={<ProductDetailed />}/>
+        <Route path="*" element={<NotFound />} />
+      </Route>
     </Routes>
   );
 }

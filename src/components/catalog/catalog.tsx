@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { getPromoProduct } from '../../store/cameras-data/selectors';
 import Banner from '../banner/banner';
